@@ -8,3 +8,5 @@ It can be used to search for films, get advice on what film to watch, look for a
 
 ## Where to find it
 The link to the bot is this [@RecommendationBot](https://t.me/RecommendationBot), or you can search for it in telegram by writing @RecommendationBot, the name is MovieBot.
+
+<img src="https://github.com/0x5eba/RecommendationBot/blob/master/img/bot.png" width="200" height="300">
