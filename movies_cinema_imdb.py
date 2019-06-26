@@ -25,7 +25,7 @@ from surprise import Reader, Dataset, SVD, evaluate
 # reload(sys)
 # sys.setdefaultencoding('utf8')
 
-tmdb.API_KEY = '75f43da0fc3ecc1f380e800a1ed51f3a'
+tmdb.API_KEY = 'API_KEY'
 
 path_src = '../the-movies-dataset/'
 path_dest = '../cinema-dataset/'
@@ -351,6 +351,8 @@ def final_cinema_movies(userId):
     del ratings['useless']
     from hybrid import get_svd
     svd = get_svd()
+    
+    print("cinema for " + str(userId))
 
     def hybrid_recommandation(userId, title, svd):
         idx = 0
@@ -388,4 +390,21 @@ def final_cinema_movies(userId):
             dict_rank_movies[str(m) + " [" + str(available) + "]"] = total_predict
     
     best_movie_sorted = sorted(dict_rank_movies.items(), key=lambda x: x[1], reverse=True)
-    return best_movie_sorted[:3]
+
+    element_to_take = []
+    count_not_exit_yet = 0
+    count_exit_yet = 0
+    for i, (title, predict) in enumerate(best_movie_sorted):
+        if count_exit_yet >= 2:
+            break
+        if ("2018]" in str(title) or "2019]" in str(title)) and count_not_exit_yet < 3:
+            count_not_exit_yet += 1
+            element_to_take.append((title, predict))
+        elif "2018]" not in str(title) and "2019]" not in str(title):
+            count_exit_yet += 1
+            element_to_take.append((title, predict))
+    try:
+        print(element_to_take)
+    except:
+        pass
+    return element_to_take
